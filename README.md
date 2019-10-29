@@ -1,14 +1,99 @@
-# Adonis Addon
+# Adonis RBAC
 
-This is a boilerplate for creating AdonisJs Addons. It is suggested to read [addons guide](http://adonisjs.com/recipes/making-adonis-addons) to learn more about the development process.
+Another Role-Based Access Control (RBAC) implementation for [AdonisJs](https://github.com/adonisjs/adonis-framework)
 
-## Dependencies
-This project includes following dependencies, you are free to remove them.
+## Installation
 
-1. [japa](https://github.com/thetutlage/japa) - Test runner to run tests
-2. [standardjs](https://standardjs.com/) - Code linter
+```bash
+$ adonis install git+https://github.com/alexdonh/adonis-rbac.git --as=adonis-rbac
+```
 
-## Things to note
+## Setup
 
-1. Always include `@adonisjs/fold` as a dev dependency to your addon.
-2. Use `require.main.require('@adonisjs/fold')` vs `require('@adonisjs/fold')` when importing the IoC container dependency.
+1. Register RBAC providers in `start/app.js` file.
+
+```js
+const providers = [
+  ...
+  '@adonisjs/lucid/providers/LucidProvider',
+  'adonis-rbac/providers/RbacProvider'
+]
+
+const providers = [
+  ...
+  '@adonisjs/lucid/providers/MigrationsProvider',
+  'adonis-rbac/providers/CommandsProvider'
+]
+```
+
+2. Setting up trait in `/app/Models/User.js` model.
+
+```js
+class User extends Model {
+
+  static get traits() {
+    return [
+      '@provider:Rbac/Traits/User'
+    ]
+  }
+
+  // or if you need to customize the properties
+
+  static boot () {
+    super.boot()
+
+    this.addTrait('@provider:Rbac/Traits/User', {
+      cache: false, // or cache component. See https://github.com/alexdonh/adonis-cache.git
+      cacheKeyPrefix: 'rbac/user/',
+      cacheDuration: 60 * 24,
+      allowActions: []
+    })
+  }
+}
+```
+
+3. Setting up middleware in `start/kernel.js` file.
+
+```js
+const namedMiddleware = {
+  ...
+  rbac: 'Rbac/Middlewares/AccessControl'
+  ...
+}
+```
+
+4. Run the migrations. See [https://adonisjs.com/docs/4.1/migrations](https://adonisjs.com/docs/4.1/migrations)
+
+```bash
+$ adonis migration:run
+```
+
+## Usage
+
+1. In `start/routes.js`:
+
+```js
+Route.get('/path/to/action', 'SomeController.someAction').middleware(['auth'])
+
+// or
+
+Route
+  .group(() => {
+    ...
+  })
+  .middleware(['auth'])
+```
+
+2. In controller actions:
+
+```js
+if (auth.user.is('administrator')) {
+  ...
+}
+
+// or
+
+if (auth.user.can('/path/to/action')) {
+  ...
+}
+```
