@@ -1,0 +1,43 @@
+'use strict'
+
+/** @type {import('@adonisjs/lucid/src/Schema')} */
+const Schema = use('Schema')
+
+class AuthSchema extends Schema {
+  up () {
+    this.create('auth', (table) => {
+      table.timestamp('createdAt').defaultTo(this.fn.now())
+      table.timestamp('updatedAt').defaultTo(this.fn.now())
+      table.string('id', 255).collate('latin1_general_ci').unique().primary()
+      // TYPE: ROLE | PERMISSION
+      table.specificType('type', 'smallint').defaultTo(2)
+      table.string('name', 255)
+      table.text('description')
+      table.json('data')
+    })
+    this.create('auth_child', (table) => {
+      table.string('parentId', 255).collate('latin1_general_ci')
+      table.string('childId', 255).collate('latin1_general_ci')
+      table.primary(['parentId', 'childId'])
+      table.foreign('parentId').references('id').inTable('auth').onDelete('CASCADE').onUpdate('CASCADE')
+      table.foreign('childId').references('id').inTable('auth').onDelete('CASCADE').onUpdate('CASCADE')
+    })
+    this.create('user_auth', (table) => {
+      table.timestamp('createdAt').defaultTo(this.fn.now())
+      table.timestamp('updatedAt').defaultTo(this.fn.now())
+      table.bigInteger('userId')
+      table.string('authId', 255).collate('latin1_general_ci')
+      table.primary(['userId', 'authId'])
+      table.foreign('userId').references('id').inTable('user').onDelete('CASCADE').onUpdate('CASCADE')
+      table.foreign('authId').references('id').inTable('auth').onDelete('CASCADE').onUpdate('CASCADE')
+    })
+  }
+
+  down () {
+    this.drop('user_auth')
+    this.drop('auth_child')
+    this.drop('auth')
+  }
+}
+
+module.exports = AuthSchema

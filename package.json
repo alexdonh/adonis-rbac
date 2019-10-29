@@ -1,0 +1,47 @@
+{
+  "name": "adonis-rbac",
+  "version": "1.0.0",
+  "description": "Another Role-Based Access Control (RBAC) implementation for AdonisJs",
+  "main": "index.js",
+  "scripts": {
+    "lint": "standard",
+    "pretest": "npm run lint",
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexdonh/adonis-rbac.git"
+  },
+  "keywords": [
+    "adonisjs",
+    "adonis-framework",
+    "rbac",
+    "access control",
+    "role",
+    "permission"
+  ],
+  "author": "Alex Do <alex.donh@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/alexdonh/adonis-rbac",
+  "dependencies": {
+    "@adonisjs/generic-exceptions": "^3.0.1",
+    "@adonisjs/lucid": "^6.1.3",
+    "lodash": "^4.17.15",
+    "node-exceptions": "^4.0.1"
+  },
+  "devDependencies": {
+    "@adonisjs/ace": "^5.0.8",
+    "@adonisjs/fold": "^4.0.9",
+    "@adonisjs/sink": "^1.0.13",
+    "babel-eslint": "^10.0.3",
+    "mocha": "^6.2.2",
+    "standard": "^14.3.1"
+  },
+  "standard": {
+    "parser": "babel-eslint",
+    "globals": [
+      "use",
+      "make"
+    ]
+  }
+}

@@ -1,0 +1,66 @@
+'use strict'
+
+/** @type {import('@adonisjs/framework/src/Env')} */
+const Env = use('Env')
+
+module.exports = {
+
+  /*
+  |--------------------------------------------------------------------------
+  | Cache
+  |--------------------------------------------------------------------------
+  |
+  | Whether to use cache component to store loaded items. If specified
+  | as a string, this should be resolvable by IoC contrainer. Defaults
+  | to false which indicates cache is disabled.
+  | Please refer to https://github.com/alexdonh/adonis-cache-enhanced/
+  |
+  */
+
+  cache: Env.get('RBAC_CACHE', false), // Adonis/Addons/Cache or Cache
+
+  /*
+  |--------------------------------------------------------------------------
+  | Cache Key
+  |--------------------------------------------------------------------------
+  |
+  | A unique cache key to avoid collisions.
+  |
+  */
+
+  cacheKey: Env.get('RBAC_CACHE_KEY', 'rbac'),
+
+  /*
+  |--------------------------------------------------------------------------
+  | Cache Duration
+  |--------------------------------------------------------------------------
+  |
+  | How long in seconds should a cache be available. Defaults to 24 hours.
+  |
+  */
+
+  cacheDuration: Env.get('RBAC_CACHE_KEY', 60 * 60 * 24),
+
+  /*
+  |--------------------------------------------------------------------------
+  | Cache Key Prefix
+  |--------------------------------------------------------------------------
+  |
+  | Used for prefixing user-based loaded cache items.
+  |
+  */
+
+  cacheKeyPrefix: Env.get('RBAC_CACHE_KEY_PREFIX', 'rbac/user/'),
+
+  /*
+  |--------------------------------------------------------------------------
+  | Default allowed actions
+  |--------------------------------------------------------------------------
+  |
+  | Any actions that should be automatically allowed. Rbac will implicitly
+  | ignore these actions.
+  |
+  */
+
+  allowActions: []
+}
