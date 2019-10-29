@@ -19,7 +19,7 @@ const providers = [
   'adonis-rbac/providers/RbacProvider'
 ]
 
-const providers = [
+const aceProviders = [
   ...
   '@adonisjs/lucid/providers/MigrationsProvider',
   'adonis-rbac/providers/CommandsProvider'
@@ -97,3 +97,15 @@ if (auth.user.can('/path/to/action')) {
   ...
 }
 ```
+
+## Credits
+
+- [Alex Do](https://github.com/alexdonh)
+
+## Support
+
+Having trouble? [Open an issue](https://github.com/alexdonh/adonis-rbac/issues/new)!
+
+## License
+
+The MIT License (MIT). See [License File](LICENSE) for more information.
