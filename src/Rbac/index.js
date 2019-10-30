@@ -11,12 +11,12 @@ const Database = use('Database')
 
 class Rbac {
   constructor (Logger, config) {
-    const defaultOptions = {
+    const defaults = {
       cache: false,
       cacheKey: 'rbac',
       cacheDuration: 60 * 24
     }
-    config = _.extend(defaultOptions, config)
+    config = _.extend(defaults, config)
 
     this.logger = Logger
 

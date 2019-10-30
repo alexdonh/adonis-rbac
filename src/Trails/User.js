@@ -3,16 +3,17 @@
 const _ = require('lodash')
 const { ioc } = require('@adonisjs/fold')
 const Rbac = use('Rbac')
+const Config = use('Config')
 
 class User {
   register (Model, options = {}) {
-    const defaultOptions = {
+    const defaults = {
       cache: false,
       cacheKeyPrefix: 'rbac/user/',
       cacheDuration: 60 * 24,
       allowActions: []
     }
-    options = _.extend({}, defaultOptions, options)
+    options = _.extend({}, defaults, Config.get('rbac', {}), options)
 
     Model.prototype.getRbacCacheKey = function () {
       return [options.cacheKeyPrefix, this.id].join('')
