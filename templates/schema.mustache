@@ -28,7 +28,6 @@ class AuthSchema extends Schema {
       table.bigInteger('userId')
       table.string('authId', 255).collate('latin1_general_ci')
       table.primary(['userId', 'authId'])
-      table.foreign('userId').references('id').inTable('user').onDelete('CASCADE').onUpdate('CASCADE')
       table.foreign('authId').references('id').inTable('auth').onDelete('CASCADE').onUpdate('CASCADE')
     })
   }
