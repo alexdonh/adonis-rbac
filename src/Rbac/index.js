@@ -428,7 +428,7 @@ class Rbac {
 
   async invalidateCache () {
     if (this.cache) {
-      await this.cache.forget(this.cacheKey)
+      await this.cache.delete(this.cacheKey)
       this.items = {}
       this.parents = {}
     }
@@ -460,7 +460,7 @@ class Rbac {
       this.parents[authchilds[i].childId].push(authchilds[i].parentId)
     }
 
-    this.cache.put(this.cacheKey, [this.items, this.parents], this.cacheDuration)
+    this.cache.set(this.cacheKey, [this.items, this.parents], this.cacheDuration)
   }
 
   hasNoAssignments (assignments) {

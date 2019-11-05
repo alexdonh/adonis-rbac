@@ -45,7 +45,7 @@ class User {
       if (cache && allowCaching && _.isEmpty(params)) {
         const cached = await cache.get(this.getRbacCacheKey(), {})
         cached[authId] = access
-        await cache.put(this.getRbacCacheKey(), cached, options.cacheDuration)
+        await cache.set(this.getRbacCacheKey(), cached, options.cacheDuration)
       }
 
       return access
