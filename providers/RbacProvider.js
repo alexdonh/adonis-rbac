@@ -42,11 +42,11 @@ class RbacProvider extends ServiceProvider {
     })
     this.app.alias(`${namespace}`, 'Rbac')
 
-    this.app.bind(`${namespace}/Trails/User`, () => {
-      const UserTrail = require('../src/Trails/User')
-      return new UserTrail()
+    this.app.bind(`${namespace}/Traits/User`, () => {
+      const UserTrait = require('../src/Traits/User')
+      return new UserTrait()
     })
-    this.app.alias(`${namespace}/Trails/User`, 'Rbac/Trails/User')
+    this.app.alias(`${namespace}/Traits/User`, 'Rbac/Traits/User')
 
     this.app.bind(`${namespace}/Middlewares/AccessControl`, () => {
       const AccessControlMiddleware = require('../src/Middlewares/AccessControl')
