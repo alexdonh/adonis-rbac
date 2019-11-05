@@ -2,6 +2,9 @@
 
 const _ = require('lodash')
 const { ioc } = require('@adonisjs/fold')
+const Role = require('../Models/Role')
+const Permission = require('../Models/Permission')
+
 const Rbac = use('Rbac')
 const Config = use('Config')
 
@@ -56,7 +59,7 @@ class User {
         .pivotTable('user_auth')
         .pivotPrimaryKey(['userId', 'authId'])
         .withTimestamps()
-        .where('auth.type', Rbac.TYPE_ROLE)
+        .where('auth.type', Role.TYPE)
     }
 
     Model.prototype.permissions = function () {
@@ -64,7 +67,7 @@ class User {
         .pivotTable('user_auth')
         .pivotPrimaryKey(['userId', 'authId'])
         .withTimestamps()
-        .where('auth.type', Rbac.TYPE_PERMISSION)
+        .where('auth.type', Permission.TYPE)
     }
 
     Model.scopeHasRoles = (query, roles) => {
