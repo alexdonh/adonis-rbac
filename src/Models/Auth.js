@@ -4,6 +4,10 @@
 const Model = use('Model')
 
 class Auth extends Model {
+  static get table() {
+    return 'auth'
+  }
+  
   static get incrementing () {
     return false
   }
